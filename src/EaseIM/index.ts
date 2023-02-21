@@ -4,4 +4,4 @@ let EaseClient = new EC.connection({
   appKey: EASEIM_APP_KEY,
 });
 
-export default { EaseClient, EC, EasemobChat };
+export { EaseClient, EC, EasemobChat };
