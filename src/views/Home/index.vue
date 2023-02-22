@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import Login from '@/components/Login.vue';
+import Message from '@/components/Message.vue';
 import LogView from '../LogView/index.vue';
 </script>
 
@@ -11,19 +12,23 @@ import LogView from '../LogView/index.vue';
           <p>环信IM Vue3 API 测试Demo</p>
         </el-header>
         <el-main class="left_container">
-          <el-tabs tab-position="left" style="height: 200px" class="demo-tabs">
+          <el-tabs tab-position="left">
             <el-tab-pane label="登录相关"><Login /></el-tab-pane>
-            <el-tab-pane label="消息管理">Config</el-tab-pane>
+            <el-tab-pane label="消息管理"><Message /></el-tab-pane>
             <el-tab-pane label="管理用户属性">Role</el-tab-pane>
             <el-tab-pane label="管理用户关系">Task</el-tab-pane>
+            <el-tab-pane label="群组相关">Task</el-tab-pane>
+            <el-tab-pane label="聊天室相关">Task</el-tab-pane>
+            <el-tab-pane label="在线状态订阅">Task</el-tab-pane>
+            <el-tab-pane label="Reaction">Task</el-tab-pane>
+            <el-tab-pane label="子区管理">Task</el-tab-pane>
           </el-tabs>
         </el-main>
       </el-container>
-
-      <el-aside class="rigth_container">
+      <!-- <el-aside class="rigth_container">
         <h1>Log OutPut</h1>
         <log-view />
-      </el-aside>
+      </el-aside> -->
     </el-container>
   </div>
 </template>
@@ -38,7 +43,7 @@ import LogView from '../LogView/index.vue';
 }
 .left_container {
   /* width: calc(100% - 600px); */
-  min-height: 850px;
+  min-height: 800px;
   background-color: rgba(248, 250, 249, 0.295);
   /* filter: drop-shadow(0 0 2em #00010eaa); */
   /* border-radius: 5px; */
