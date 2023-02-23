@@ -148,6 +148,9 @@ const sendImageMessage = () => {
     })
     .catch((e) => {
       console.log('>>>>>发送图片消息失败', e);
+    })
+    .finally(() => {
+      upload.value!.clearFiles();
     });
 };
 //发送文件消息

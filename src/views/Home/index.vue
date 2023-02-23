@@ -25,10 +25,10 @@ import LogView from '../LogView/index.vue';
           </el-tabs>
         </el-main>
       </el-container>
-      <!-- <el-aside class="rigth_container">
+      <el-aside class="rigth_container">
         <h1>Log OutPut</h1>
         <log-view />
-      </el-aside> -->
+      </el-aside>
     </el-container>
   </div>
 </template>

@@ -1,5 +1,15 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import eruda, { InitOptions } from 'eruda';
+onMounted(() => {
+  const el = document.getElementById('log_output') || undefined;
+  eruda.init({
+    container: el,
+    autoScale: true,
+    defaults: { displaySize: 100 },
+  });
+  eruda.show();
+});
 </script>
 
 <template>
