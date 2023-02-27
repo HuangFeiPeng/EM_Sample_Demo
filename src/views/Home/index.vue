@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Login from '@/components/Login.vue';
 import Message from '@/components/Message.vue';
+import Profile from '@/components/Profile.vue';
 import LogView from '../LogView/index.vue';
 </script>
 
@@ -15,7 +16,7 @@ import LogView from '../LogView/index.vue';
           <el-tabs tab-position="left">
             <el-tab-pane label="登录相关"><Login /></el-tab-pane>
             <el-tab-pane label="消息管理"><Message /></el-tab-pane>
-            <el-tab-pane label="管理用户属性">Role</el-tab-pane>
+            <el-tab-pane label="管理用户属性"><Profile /></el-tab-pane>
             <el-tab-pane label="管理用户关系">Task</el-tab-pane>
             <el-tab-pane label="群组相关">Task</el-tab-pane>
             <el-tab-pane label="聊天室相关">Task</el-tab-pane>

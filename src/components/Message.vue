@@ -4,13 +4,29 @@ import { EaseClient, EC, EasemobChat } from '@/EaseIM/index';
 import { useReceivedMsgListenner } from '@/EaseIM/hooks';
 /* element plus */
 import { genFileId } from 'element-plus';
-import type { UploadInstance, UploadProps, UploadRawFile } from 'element-plus';
+import type {
+  UploadInstance,
+  UploadProps,
+  UploadRawFile,
+  TabsPaneContext,
+} from 'element-plus';
+
 useReceivedMsgListenner();
 interface MessageForm {
   targetId: string;
   chatType: EasemobChat.ChatType;
   messageType: EasemobChat.MessageType;
   content: string;
+}
+interface ManageServerMessageForm {
+  pageNum: number;
+  pageSize: number;
+  chatType: 'singleChat' | 'groupChat';
+  cursor: null | number | string;
+  searchDirection: 'up' | 'down';
+  delRomingType: 'time' | 'messageId';
+  beforeTimeStamp: number;
+  messageIds: string[];
 }
 const messageForm = reactive<MessageForm>({
   targetId: '',
@@ -184,10 +200,112 @@ const sendFileMessage = () => {
 const sendAudioMessage = () => {};
 //发送视频消息
 const sendVideoMessage = () => {};
+
+/* 管理服务端消息  */
+const manageServerMessageForm = reactive<ManageServerMessageForm>({
+  pageNum: 1,
+  pageSize: 10,
+  cursor: null,
+  chatType: 'singleChat',
+  searchDirection: 'up',
+  delRomingType: 'time',
+  beforeTimeStamp: Date.now(),
+  messageIds: [],
+});
+//获取会话列表
+const fetchConversationlistFromServer = async () => {
+  const params = {
+    pageNum: manageServerMessageForm.pageNum,
+    pageSize: manageServerMessageForm.pageSize,
+  };
+  try {
+    const { data } = await EaseClient.getConversationlist(params);
+    console.log('>>>>获取会话列表', data);
+  } catch (error) {
+    console.log('>>>>会话列表获取失败', error);
+  }
+};
+//获取漫游消息
+const fetchHistoryMessageFromServer = async () => {
+  let options = {
+    // 对方的用户 ID 或者群组 ID 或聊天室 ID。
+    targetId: messageForm.targetId,
+    // 每页期望获取的消息条数。取值范围为 [1,50]，默认值为 20。
+    pageSize: manageServerMessageForm.pageSize,
+    // 查询的起始消息 ID。若该参数设置为 `-1`、`null` 或空字符串，从最新消息开始。
+    cursor: manageServerMessageForm.cursor,
+    // 会话类型：（默认） `singleChat`：单聊；`groupChat`：群聊。
+    chatType: manageServerMessageForm.chatType,
+    // 消息搜索方向：（默认）`up`：按服务器收到消息的时间的逆序获取；`down`：按服务器收到消息的时间的正序获取。
+    searchDirection: manageServerMessageForm.searchDirection,
+  };
+  EaseClient.getHistoryMessages(options)
+    .then((res) => {
+      // 成功获取历史消息。
+      console.log(res);
+    })
+    .catch((e) => {
+      // 获取失败。
+      console.log('>>>>获取失败', e);
+    });
+};
+//单向删除漫游消息
+interface RemoveHistoryMessages {
+  targetId: string;
+  chatType: 'singleChat' | 'groupChat';
+  messageIds?: string[];
+  beforeTimeStamp?: number;
+}
+const removeHistoryMessageFromServer = async () => {
+  const params: RemoveHistoryMessages = {
+    targetId: messageForm.targetId,
+    chatType: manageServerMessageForm.chatType,
+  };
+  if (manageServerMessageForm.delRomingType === 'time') {
+    params.beforeTimeStamp = Date.now();
+  }
+  if (manageServerMessageForm.delRomingType === 'messageId') {
+    params.messageIds = manageServerMessageForm.messageIds;
+  }
+  console.log('params', params);
+  try {
+    const res = await EaseClient.removeHistoryMessages(params);
+    manageServerMessageForm.messageIds = [];
+    console.log('>>>>>>删除成功', res);
+  } catch (error) {
+    console.log('>>>>>删除失败', error);
+  }
+};
+
+//单向删除会话
+type RmoveConversationType = {
+  channel: string;
+  chatType: 'singleChat' | 'groupChat';
+  deleteRoam: boolean;
+};
+const removeConversationFromServer = async () => {
+  let options: RmoveConversationType = {
+    // 会话 ID：单聊为对方的用户 ID，群聊为群组 ID。
+    channel: messageForm.targetId,
+    // 会话类型：（默认） `singleChat`：单聊；`groupChat`：群聊。
+    chatType: manageServerMessageForm.chatType,
+    // 删除会话时是否同时删除服务端漫游消息。
+    deleteRoam: false,
+  };
+  EaseClient.deleteConversation(options)
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((e) => {
+      // 删除失败。
+      console.log('>>>>删除失败', e);
+    });
+};
 </script>
 <template>
   <div class="message_contaniner">
     <div>
+      <h2>发送消息</h2>
       <el-form label-position="left" label-width="100px" :model="messageForm">
         <el-form-item label="目标用户" required>
           <el-input v-model="messageForm.targetId" />
@@ -301,12 +419,140 @@ const sendVideoMessage = () => {};
         </el-form-item>
       </el-form>
     </div>
+    <el-divider />
+    <div>
+      <h2>管理服务端消息</h2>
+      <el-form
+        label-position="left"
+        label-width="150px"
+        :model="manageServerMessageForm"
+      >
+        <el-form-item label="chatType">
+          <el-radio-group
+            v-model="manageServerMessageForm.chatType"
+            class="ml-4"
+          >
+            <el-radio label="singleChat" size="large">singleChat</el-radio>
+            <el-radio label="groupChat" size="large">groupChat</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="pageNum">
+          <el-input-number
+            v-model="manageServerMessageForm.pageNum"
+            :step="1"
+            :min="1"
+            :max="50"
+          />
+        </el-form-item>
+        <el-form-item label="pageSize">
+          <el-input-number
+            v-model="manageServerMessageForm.pageSize"
+            :step="10"
+            :min="10"
+          />
+        </el-form-item>
+        <el-form-item label="cursor">
+          <el-input
+            v-model="manageServerMessageForm.cursor"
+            placeholder="默认可不写，如输入请填写消息ID"
+          />
+        </el-form-item>
+        <el-form-item label="searchDirection">
+          <el-radio-group
+            v-model="manageServerMessageForm.searchDirection"
+            class="ml-4"
+          >
+            <el-radio label="up" size="large">up</el-radio>
+            <el-radio label="down" size="large">down</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="delRomingType">
+          <el-radio-group
+            v-model="manageServerMessageForm.delRomingType"
+            class="ml-4"
+          >
+            <el-radio label="time" size="large">按照时间</el-radio>
+            <el-radio label="messageId" size="large">按照消息ID</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item v-show="manageServerMessageForm.delRomingType === 'time'">
+          <el-date-picker
+            v-model="manageServerMessageForm.beforeTimeStamp"
+            type="datetime"
+            placeholder="选择起始时间"
+          />
+        </el-form-item>
+        <el-form-item
+          v-show="manageServerMessageForm.delRomingType === 'messageId'"
+        >
+          <el-select
+            v-model="manageServerMessageForm.messageIds"
+            multiple
+            filterable
+            allow-create
+            default-first-option
+            :reserve-keyword="false"
+            placeholder="填写消息ID"
+          >
+            <el-option
+              v-for="item in manageServerMessageForm.messageIds"
+              :key="item"
+              :label="item"
+              :value="item"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="仅需要调整pageSize和pageNum"
+            placement="top-start"
+          >
+            <el-button type="primary" @click="fetchConversationlistFromServer">
+              会话列表
+            </el-button>
+          </el-tooltip>
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="需传入targetId/pageSize/cursor/searchDirection"
+            placement="top-start"
+          >
+            <el-button type="primary" @click="fetchHistoryMessageFromServer">
+              获取漫游消息
+            </el-button>
+          </el-tooltip>
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="需传入targetId/chatType/beforeTimeStamp或者messageIds"
+            placement="top-start"
+          >
+            <el-button type="primary" @click="removeHistoryMessageFromServer">
+              单向删除漫游消息
+            </el-button>
+          </el-tooltip>
+          <el-tooltip
+            class="box-item"
+            effect="dark"
+            content="需传入targetId/chatType"
+            placement="top-start"
+          >
+            <el-button type="primary" @click="removeConversationFromServer">
+              单向删除会话
+            </el-button>
+          </el-tooltip>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .message_contaniner {
   width: 50%;
-  height: 100%;
+  max-height: 500px;
+  overflow-y: auto;
 }
 </style>
