@@ -4,9 +4,6 @@ import { EaseClient } from '@/EaseIM';
 import useLoginStore from '@/stores/login';
 import { ElMessage } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
-/* IM listen */
-import { useConnectListenner } from '@/EaseIM/hooks/';
-useConnectListenner();
 const loginStore = useLoginStore();
 const loginEaseIMFrom = reactive({
   username: '',

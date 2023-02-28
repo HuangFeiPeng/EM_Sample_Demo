@@ -1,8 +1,21 @@
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import Login from '@/components/Login.vue';
 import Message from '@/components/Message.vue';
 import Profile from '@/components/Profile.vue';
+import Contacts from '@/components/Contacts.vue';
 import LogView from '../LogView/index.vue';
+
+import {
+  useConnectListenner,
+  useReceivedMsgListenner,
+  useContactsListenner,
+} from '@/EaseIM/hooks';
+onMounted(() => {
+  useConnectListenner();
+  useReceivedMsgListenner();
+  useContactsListenner();
+});
 </script>
 
 <template>
@@ -17,7 +30,7 @@ import LogView from '../LogView/index.vue';
             <el-tab-pane label="登录相关"><Login /></el-tab-pane>
             <el-tab-pane label="消息管理"><Message /></el-tab-pane>
             <el-tab-pane label="管理用户属性"><Profile /></el-tab-pane>
-            <el-tab-pane label="管理用户关系">Task</el-tab-pane>
+            <el-tab-pane label="管理用户关系"><Contacts /></el-tab-pane>
             <el-tab-pane label="群组相关">Task</el-tab-pane>
             <el-tab-pane label="聊天室相关">Task</el-tab-pane>
             <el-tab-pane label="在线状态订阅">Task</el-tab-pane>
