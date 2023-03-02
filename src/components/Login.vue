@@ -24,7 +24,7 @@ const ruleForm = reactive<FormRules>({
 });
 //登录IM
 const loginEaseIM = async () => {
-  console.log('1111');
+  console.log(EaseClient.appKey);
   if (loginStore.loginState) {
     ElMessage({ type: 'warning', message: '已登录，请勿重复登录！' });
     return;

@@ -1,4 +1,3 @@
-import { onUnmounted } from 'vue';
 import { EaseClient, EasemobChat } from '../index';
 const useReceivedMsgListnner = () => {
   const msgListnerFunc = {
@@ -20,10 +19,8 @@ const useReceivedMsgListnner = () => {
     onVideoMessage: (message: EasemobChat.VideoMsgBody) => {},
     // 当前用户订阅的其他用户的在线状态更新。
   };
+  EaseClient.removeEventHandler('receivedMsgEvent');
   EaseClient.addEventHandler('receivedMsgEvent', msgListnerFunc);
-  onUnmounted(() => {
-    EaseClient.removeEventHandler('receivedMsgEvent');
-  });
 };
 
 export default useReceivedMsgListnner;

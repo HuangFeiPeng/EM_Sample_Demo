@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import Setting from '@/components/Setting.vue';
 import Login from '@/components/Login.vue';
 import Message from '@/components/Message.vue';
 import Profile from '@/components/Profile.vue';
@@ -23,7 +24,7 @@ onMounted(() => {
     <el-container>
       <el-container>
         <el-header>
-          <p>环信IM Vue3 API 测试Demo</p>
+          <Setting />
         </el-header>
         <el-main class="left_container">
           <el-tabs tab-position="left">
@@ -58,7 +59,7 @@ onMounted(() => {
 .left_container {
   /* width: calc(100% - 600px); */
   min-height: 800px;
-  background-color: rgba(248, 250, 249, 0.295);
+  background-color: rgba(248, 250, 249, 0.682);
   /* filter: drop-shadow(0 0 2em #00010eaa); */
   /* border-radius: 5px; */
   /* overflow: hidden; */

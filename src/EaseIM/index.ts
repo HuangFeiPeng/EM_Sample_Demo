@@ -4,4 +4,8 @@ let EaseClient = new EC.connection({
   appKey: EASEIM_APP_KEY,
 });
 
-export { EaseClient, EC, EasemobChat };
+const reInitEaseClient = (params: EasemobChat.ConnectionParameters) => {
+  EaseClient = new EC.connection(params);
+};
+
+export { EaseClient, EC, EasemobChat, reInitEaseClient };

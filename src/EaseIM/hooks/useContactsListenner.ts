@@ -1,4 +1,3 @@
-import { onUnmounted } from 'vue';
 import { EaseClient } from '@/EaseIM';
 import { ElMessage, ElMessageBox } from 'element-plus';
 import { useContactsStore } from '@/stores/contacts';
@@ -20,6 +19,7 @@ const useContactsListenner = () => {
       ElMessage.error('拒绝申请');
     }
   };
+  EaseClient.removeEventHandler('contactsEvent');
   EaseClient.addEventHandler('contactsEvent', {
     // 当前用户收到好友请求。用户 B 向用户 A 发送好友请求，用户 A 收到该事件。
     onContactInvited: function (msg) {
@@ -42,9 +42,6 @@ const useContactsListenner = () => {
     onContactAgreed: function (msg) {
       console.log('>>>>好友申请已同意', msg);
     },
-  });
-  onUnmounted(() => {
-    EaseClient.removeEventHandler('contactsEvent');
   });
 };
 

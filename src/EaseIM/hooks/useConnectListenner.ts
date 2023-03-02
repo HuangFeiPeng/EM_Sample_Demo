@@ -1,4 +1,3 @@
-import { onUnmounted } from 'vue';
 import { EaseClient } from '../index';
 import useLoginStore from '@/stores/login';
 import { ElMessage } from 'element-plus';
@@ -25,10 +24,7 @@ const useConnectListenner = () => {
       console.log('error');
     },
   };
+  EaseClient.removeEventHandler('connectEvent');
   EaseClient.addEventHandler('connectEvent', connectListenFunc);
-  onUnmounted(() => {
-    console.log('>>>>组件卸载取消监听。');
-    EaseClient.removeEventHandler('connectEvent');
-  });
 };
 export default useConnectListenner;
