@@ -5,17 +5,20 @@ import Login from '@/components/Login.vue';
 import Message from '@/components/Message.vue';
 import Profile from '@/components/Profile.vue';
 import Contacts from '@/components/Contacts.vue';
+import GroupManage from '@/components/GroupManage.vue';
 import LogView from '../LogView/index.vue';
 
 import {
   useConnectListenner,
   useReceivedMsgListenner,
   useContactsListenner,
+  useGroupEventListenner,
 } from '@/EaseIM/hooks';
 onMounted(() => {
   useConnectListenner();
   useReceivedMsgListenner();
   useContactsListenner();
+  useGroupEventListenner();
 });
 </script>
 
@@ -32,7 +35,7 @@ onMounted(() => {
             <el-tab-pane label="消息管理"><Message /></el-tab-pane>
             <el-tab-pane label="管理用户属性"><Profile /></el-tab-pane>
             <el-tab-pane label="管理用户关系"><Contacts /></el-tab-pane>
-            <el-tab-pane label="群组相关">Task</el-tab-pane>
+            <el-tab-pane label="群组相关"><GroupManage /></el-tab-pane>
             <el-tab-pane label="聊天室相关">Task</el-tab-pane>
             <el-tab-pane label="在线状态订阅">Task</el-tab-pane>
             <el-tab-pane label="Reaction">Task</el-tab-pane>

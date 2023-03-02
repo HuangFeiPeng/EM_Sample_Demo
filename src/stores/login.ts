@@ -10,8 +10,8 @@ const useLoginStore = defineStore('login', {
   },
   getters: {},
   actions: {
-    changeLoginState() {
-      this.$state.loginState = !this.$state.loginState;
+    changeLoginState(type: boolean) {
+      this.$state.loginState = type;
       console.log('  this.$state.loginState', this.$state.loginState);
     },
   },

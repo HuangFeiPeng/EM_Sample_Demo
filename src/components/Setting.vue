@@ -5,6 +5,7 @@ import {
   useConnectListenner,
   useReceivedMsgListenner,
   useContactsListenner,
+  useGroupEventListenner,
 } from '@/EaseIM/hooks';
 let appKey = ref(EaseClient.appKey);
 const changeAppkey = () => {
@@ -25,6 +26,7 @@ const RemountEaseIMListenner = () => {
   useConnectListenner();
   useReceivedMsgListenner();
   useContactsListenner();
+  useGroupEventListenner();
 };
 </script>
 <template>

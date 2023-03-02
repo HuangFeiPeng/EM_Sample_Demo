@@ -10,7 +10,7 @@ const useConnectListenner = () => {
         message: 'IM 已链接',
         type: 'success',
       });
-      loginStore.changeLoginState();
+      loginStore.changeLoginState(true);
     },
     onDisconnected: () => {
       console.log('disconnected');
@@ -18,7 +18,7 @@ const useConnectListenner = () => {
         message: 'IM 已断开！',
         type: 'warning',
       });
-      loginStore.changeLoginState();
+      loginStore.changeLoginState(false);
     },
     onError: () => {
       console.log('error');
