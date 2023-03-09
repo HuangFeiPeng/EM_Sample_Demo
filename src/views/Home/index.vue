@@ -13,7 +13,7 @@ import {
   useReceivedMsgListenner,
   useContactsListenner,
   useGroupEventListenner,
-} from '@/EaseIM/hooks';
+} from '@/EaseIM/utils';
 onMounted(() => {
   useConnectListenner();
   useReceivedMsgListenner();

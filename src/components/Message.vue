@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed } from 'vue';
 import { EaseClient, EC, EasemobChat } from '@/EaseIM/index';
-import { useReceivedMsgListenner } from '@/EaseIM/hooks';
+import { useReceivedMsgListenner } from '@/EaseIM/utils';
 /* element plus */
 import { genFileId } from 'element-plus';
 import type {

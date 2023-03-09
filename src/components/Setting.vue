@@ -6,7 +6,7 @@ import {
   useReceivedMsgListenner,
   useContactsListenner,
   useGroupEventListenner,
-} from '@/EaseIM/hooks';
+} from '@/EaseIM/utils';
 let appKey = ref(EaseClient.appKey);
 const changeAppkey = () => {
   if (EaseClient.isOpened()) {

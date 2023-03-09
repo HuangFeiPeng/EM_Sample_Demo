@@ -18,9 +18,6 @@ const ruleForm = reactive<FormRules>({
     { message: '请输入密码', trigger: 'change' },
     { min: 1, max: 50, message: 'Length should be 3 to 5', trigger: 'change' },
   ],
-  accessToken: [
-    { min: 1, max: 60, message: 'Length should be 3 to 5', trigger: 'change' },
-  ],
 });
 //登录IM
 const loginEaseIM = async () => {
