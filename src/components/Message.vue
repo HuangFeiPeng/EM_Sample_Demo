@@ -14,6 +14,7 @@ import type {
 useReceivedMsgListenner();
 interface MessageForm {
   targetId: string;
+  mid: string;
   chatType: EasemobChat.ChatType;
   messageType: EasemobChat.MessageType;
   content: string;
@@ -33,6 +34,7 @@ const messageForm = reactive<MessageForm>({
   chatType: 'singleChat',
   messageType: 'txt',
   content: '',
+  mid: '',
 });
 
 //发送文本消息
@@ -51,8 +53,8 @@ const sendTextMessage = () => {
   let msg = EC.message.create(option);
   // 调用 `send` 方法发送该文本消息。
   EaseClient.send(msg)
-    .then(() => {
-      console.log('Send message success');
+    .then(({ localMsgId, serverMsgId }) => {
+      console.log('Send message success', serverMsgId);
     })
     .catch((e) => {
       console.log('Send message fail', e);
@@ -301,6 +303,20 @@ const removeConversationFromServer = async () => {
       console.log('>>>>删除失败', e);
     });
 };
+//撤回消息
+const recallMessageFromServer = async () => {
+  let options = {
+    mid: messageForm.mid,
+    to: messageForm.targetId,
+    chatType: messageForm.chatType,
+  };
+  try {
+    let res = await EaseClient.recallMessage(options);
+    console.log('?>??????撤回成功', res);
+  } catch (error) {
+    console.log('>>>>>撤回失败', error);
+  }
+};
 </script>
 <template>
   <div class="message_contaniner">
@@ -309,6 +325,9 @@ const removeConversationFromServer = async () => {
       <el-form label-position="left" label-width="100px" :model="messageForm">
         <el-form-item label="目标用户" required>
           <el-input v-model="messageForm.targetId" />
+        </el-form-item>
+        <el-form-item label="消息id">
+          <el-input v-model="messageForm.mid" />
         </el-form-item>
         <el-form-item label="聊天类型">
           <el-radio-group v-model="messageForm.chatType">
@@ -416,6 +435,9 @@ const removeConversationFromServer = async () => {
           >
             发送文件消息
           </el-button>
+          <el-button type="primary" @click="recallMessageFromServer"
+            >撤回消息</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
