@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
+import ConfigSdk from '@/components/Configsdk.vue';
 import Setting from '@/components/Setting.vue';
 import Login from '@/components/Login.vue';
 import Message from '@/components/Message.vue';
@@ -27,7 +28,8 @@ onMounted(() => {
     <el-container>
       <el-container>
         <el-header>
-          <Setting />
+          <config-sdk />
+          <!-- <Setting /> -->
         </el-header>
         <el-main class="left_container">
           <el-tabs tab-position="left">
