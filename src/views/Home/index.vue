@@ -15,12 +15,17 @@ import {
   useContactsListenner,
   useGroupEventListenner,
 } from '@/EaseIM/utils';
+import { EC } from '@/EaseIM';
 onMounted(() => {
   useConnectListenner();
   useReceivedMsgListenner();
   useContactsListenner();
   useGroupEventListenner();
 });
+
+const downloadIMLog = () => {
+  EC.logger.download();
+};
 </script>
 
 <template>
@@ -29,6 +34,9 @@ onMounted(() => {
       <el-container>
         <el-header>
           <config-sdk />
+          <el-button type="primary" @click="downloadIMLog">
+            下载日志
+          </el-button>
           <!-- <Setting /> -->
         </el-header>
         <el-main class="left_container">
