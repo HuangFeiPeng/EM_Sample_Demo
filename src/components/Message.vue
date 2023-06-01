@@ -54,7 +54,7 @@ const sendTextMessage = () => {
   // 调用 `send` 方法发送该文本消息。
   EaseClient.send(msg)
     .then(({ localMsgId, serverMsgId }) => {
-      console.log('Send message success', serverMsgId);
+      console.log('Send message success', localMsgId, serverMsgId);
     })
     .catch((e) => {
       console.log('Send message fail', e);
@@ -108,8 +108,8 @@ const sendCustomMessage = () => {
   let msg = EC.message.create(option);
   // 调用 `send` 方法发送该文本消息。
   EaseClient.send(msg)
-    .then(() => {
-      console.log('Send message success');
+    .then((res) => {
+      console.log('Send message success', res);
     })
     .catch((e) => {
       console.log('Send message fail', e);

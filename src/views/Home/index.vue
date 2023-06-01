@@ -7,6 +7,7 @@ import Message from '@/components/Message.vue';
 import Profile from '@/components/Profile.vue';
 import Contacts from '@/components/Contacts.vue';
 import GroupManage from '@/components/GroupManage.vue';
+import Silent from '@/components/Silent.vue';
 import LogView from '../LogView/index.vue';
 
 import {
@@ -50,6 +51,7 @@ const downloadIMLog = () => {
             <el-tab-pane label="在线状态订阅">Task</el-tab-pane>
             <el-tab-pane label="Reaction">Task</el-tab-pane>
             <el-tab-pane label="子区管理">Task</el-tab-pane>
+            <el-tab-pane label="推送管理"><Silent /></el-tab-pane>
           </el-tabs>
         </el-main>
       </el-container>
