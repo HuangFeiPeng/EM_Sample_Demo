@@ -216,12 +216,19 @@ const manageServerMessageForm = reactive<ManageServerMessageForm>({
 });
 //获取会话列表
 const fetchConversationlistFromServer = async () => {
+  //   const params = {
+  //     pageNum: manageServerMessageForm.pageNum,
+  //     pageSize: manageServerMessageForm.pageSize,
+  //   };
   const params = {
-    pageNum: manageServerMessageForm.pageNum,
     pageSize: manageServerMessageForm.pageSize,
+    cursor: manageServerMessageForm.cursor as string,
   };
   try {
-    const { data } = await EaseClient.getConversationlist(params);
+    //old fetch conversationlist function
+    // const { data } = await EaseClient.getConversationlist(params);
+    //new fetch conversationlist function
+    const { data } = await EaseClient.getServerConversations(params);
     console.log('>>>>获取会话列表', data);
   } catch (error) {
     console.log('>>>>会话列表获取失败', error);
