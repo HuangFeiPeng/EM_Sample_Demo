@@ -20,8 +20,8 @@ const useConnectListenner = () => {
       });
       loginStore.changeLoginState(false);
     },
-    onError: () => {
-      console.log('error');
+    onError: (error: any) => {
+      console.log('error', error);
     },
   };
   EaseClient.removeEventHandler('connectEvent');

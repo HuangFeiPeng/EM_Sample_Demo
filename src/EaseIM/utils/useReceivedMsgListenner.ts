@@ -33,7 +33,9 @@ const useReceivedMsgListnner = () => {
     onVideoMessage: (message: EasemobChat.VideoMsgBody) => {
       console.log('收到视频消息', message);
     },
-    // 当前用户订阅的其他用户的在线状态更新。
+    onRecallMessage: (message: EasemobChat.RecallMsgBody) => {
+      console.log('收到撤回消息', message);
+    },
   };
   EaseClient.removeEventHandler('receivedMsgEvent');
   EaseClient.addEventHandler('receivedMsgEvent', msgListnerFunc);
