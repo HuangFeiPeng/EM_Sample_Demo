@@ -53,10 +53,11 @@ const registerEaseIM = async () => {
 //Token登录
 const loginEaseIMWithToken = async () => {
   try {
-    await EaseClient.open({
+    const res = await EaseClient.open({
       user: loginEaseIMFrom.username,
       accessToken: loginEaseIMFrom.accessToken,
     });
+    console.log('>>>>>>token 登录', res);
   } catch (error) {
     ElMessage({ type: 'error', message: `${error}` });
     return;

@@ -200,6 +200,7 @@ const fetchGroupAllowList = async () => {
   };
   try {
     let { data } = await EaseClient.getGroupAllowlist(option);
+    EaseClient.modifyGroup({ groupId: groupManage.groupId, description: '' });
     console.log('>>>>获取群组白名单', data);
   } catch (error) {
     console.log('>>>>获取群组白名单失败', error);

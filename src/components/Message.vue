@@ -157,8 +157,9 @@ const sendImageMessage = () => {
     // 会话类型：单聊、群聊和聊天室分别为 `singleChat`、`groupChat` 和 `chatRoom`。
     chatType: messageForm.chatType,
   };
-  // 创建文本消息。
+  // 创建图片消息。
   let msg = EC.message.create(option);
+  console.log('图片消息构建完成', msg);
   // 调用 `send` 方法发送该文本消息。
   EaseClient.send(msg)
     .then(() => {
