@@ -36,6 +36,9 @@ const useReceivedMsgListnner = () => {
     onRecallMessage: (message: EasemobChat.RecallMsgBody) => {
       console.log('收到撤回消息', message);
     },
+    onCombineMessage: (message: EasemobChat.CombineMsgBody) => {
+      console.log('onCombineMessage', message);
+    },
   };
   EaseClient.removeEventHandler('receivedMsgEvent');
   EaseClient.addEventHandler('receivedMsgEvent', msgListnerFunc);
