@@ -37,7 +37,10 @@ const useReceivedMsgListnner = () => {
       console.log('收到撤回消息', message);
     },
     onCombineMessage: (message: EasemobChat.CombineMsgBody) => {
-      console.log('onCombineMessage', message);
+      console.log('收到合并转发消息', message);
+    },
+    onModifiedMessage: (message: EasemobChat.ModifiedMsg) => {
+      console.log('收到编辑消息', message);
     },
   };
   EaseClient.removeEventHandler('receivedMsgEvent');

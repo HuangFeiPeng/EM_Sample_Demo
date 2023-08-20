@@ -23,6 +23,12 @@ const useConnectListenner = () => {
     onError: (error: any) => {
       console.log('error', error);
     },
+    onOnline: () => {
+      console.log('>>>>>>>Online');
+    },
+    onOffline: () => {
+      console.log('>>>>>>>Offline');
+    },
   };
   EaseClient.removeEventHandler('connectEvent');
   EaseClient.addEventHandler('connectEvent', connectListenFunc);

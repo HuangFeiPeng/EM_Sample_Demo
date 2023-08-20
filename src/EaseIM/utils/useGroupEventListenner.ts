@@ -118,6 +118,11 @@ const useGroupEventListenner = () => {
       }
     },
   });
+  EaseClient.listen({
+    onPresence: (presence) => {
+      console.log('presence', presence);
+    },
+  });
 };
 
 export default useGroupEventListenner;
