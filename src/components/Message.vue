@@ -92,7 +92,15 @@ const sendCustomMessage = () => {
   // 自定义事件。
   let customEvent = 'customEvent';
   // 通过键值对设置自定义消息内容。
-  let customExts = {};
+  let customExts = {
+    payload: {
+      params: {
+        status: 0,
+      },
+      userId: ['1367766865382436906'],
+    },
+    type: 5,
+  };
   let option: EasemobChat.CreateCustomMsgParameters = {
     // 消息类型。
     type: 'custom',
