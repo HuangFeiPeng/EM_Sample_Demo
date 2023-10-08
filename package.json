@@ -9,7 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "easemob-websdk": "^4.2.0",
+    "easemob-websdk": "^4.2.1",
     "element-plus": "^2.2.30",
     "eruda": "^2.11.2",
     "path": "^0.12.7",
