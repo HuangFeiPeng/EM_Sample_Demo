@@ -13,6 +13,9 @@
       <el-form-item label="soceketUrl">
         <el-input v-model="form.url" placeholder="isHttpDNS关闭方可配置" />
       </el-form-item>
+      <el-form-item label="deviceId">
+        <el-input v-model="form.deviceId" :placeholder="form.deviceId" />
+      </el-form-item>
       <el-form-item label="isHttpDNS">
         <el-switch
           v-model="form.isHttpDNS"
