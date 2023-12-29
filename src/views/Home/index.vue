@@ -16,7 +16,7 @@ import {
   useContactsListenner,
   useGroupEventListenner,
 } from '@/EaseIM/utils';
-import { EC } from '@/EaseIM';
+import { EC, EaseClient } from '@/EaseIM';
 onMounted(() => {
   useConnectListenner();
   useReceivedMsgListenner();
@@ -38,6 +38,7 @@ const downloadIMLog = () => {
           <el-button type="primary" @click="downloadIMLog">
             下载日志
           </el-button>
+          <p>当前version：{{ EaseClient.version }}</p>
           <!-- <Setting /> -->
         </el-header>
         <el-main class="left_container">
