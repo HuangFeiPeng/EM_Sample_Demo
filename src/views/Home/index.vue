@@ -7,6 +7,7 @@ import Message from '@/components/Message.vue';
 import Profile from '@/components/Profile.vue';
 import Contacts from '@/components/Contacts.vue';
 import GroupManage from '@/components/GroupManage.vue';
+import ChatRoomManage from '@/components/ChatRoomManage.vue';
 import Silent from '@/components/Silent.vue';
 import LogView from '../LogView/index.vue';
 
@@ -15,6 +16,7 @@ import {
   useReceivedMsgListenner,
   useContactsListenner,
   useGroupEventListenner,
+  useChatRoomEventListener,
 } from '@/EaseIM/utils';
 import { EC, EaseClient } from '@/EaseIM';
 onMounted(() => {
@@ -22,6 +24,7 @@ onMounted(() => {
   useReceivedMsgListenner();
   useContactsListenner();
   useGroupEventListenner();
+  useChatRoomEventListener();
 });
 
 const downloadIMLog = () => {
@@ -48,7 +51,7 @@ const downloadIMLog = () => {
             <el-tab-pane label="管理用户属性"><Profile /></el-tab-pane>
             <el-tab-pane label="管理用户关系"><Contacts /></el-tab-pane>
             <el-tab-pane label="群组相关"><GroupManage /></el-tab-pane>
-            <el-tab-pane label="聊天室相关">Task</el-tab-pane>
+            <el-tab-pane label="聊天室相关"><ChatRoomManage /></el-tab-pane>
             <el-tab-pane label="在线状态订阅">Task</el-tab-pane>
             <el-tab-pane label="Reaction">Task</el-tab-pane>
             <el-tab-pane label="子区管理">Task</el-tab-pane>
