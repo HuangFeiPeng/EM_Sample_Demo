@@ -42,6 +42,12 @@ const useReceivedMsgListnner = () => {
     onModifiedMessage: (message: EasemobChat.ModifiedMsg) => {
       console.log('收到编辑消息', message);
     },
+    onMessage: (messageList: any) => {
+      console.log('>>>>>>收到批量消息回调', messageList);
+    },
+    onReactionChange: (reactionMsg: EasemobChat.ReactionMessage) => {
+      console.log('>>>>>收到回应消息回调', reactionMsg);
+    },
   };
   EaseClient.removeEventHandler('receivedMsgEvent');
   EaseClient.addEventHandler('receivedMsgEvent', msgListnerFunc);
