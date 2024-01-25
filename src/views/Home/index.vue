@@ -11,6 +11,7 @@ import ChatRoomManage from '@/components/ChatRoomManage.vue';
 import Silent from '@/components/Silent.vue';
 import ReactionMessage from '@/components/ReactionMessage.vue';
 import LogView from '../LogView/index.vue';
+import CommonTools from '@/components/CommonTools.vue';
 
 import {
   useConnectListenner,
@@ -57,6 +58,7 @@ const downloadIMLog = () => {
             <el-tab-pane label="Reaction"><ReactionMessage /></el-tab-pane>
             <el-tab-pane label="子区管理">Task</el-tab-pane>
             <el-tab-pane label="推送管理"><Silent /></el-tab-pane>
+            <el-tab-pane label="实用工具"><CommonTools /></el-tab-pane>
           </el-tabs>
         </el-main>
       </el-container>

@@ -1,9 +1,13 @@
 import { EaseClient, EasemobChat } from '../index';
+let cacleMessageIds: string[] = [];
 const useReceivedMsgListnner = () => {
   const msgListnerFunc = {
     // 当前用户收到文本消息。
     onTextMessage: (message: EasemobChat.TextMsgBody) => {
       console.log('收到文本消息', message);
+      const { id } = message;
+      cacleMessageIds.push(id);
+      console.log('%ccacleMessageIds', 'color:blue;', cacleMessageIds);
     },
     // 当前用户收到图片消息。
     onImageMessage: (message: EasemobChat.ImgMsgBody) => {

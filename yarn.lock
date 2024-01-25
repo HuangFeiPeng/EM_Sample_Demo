@@ -404,7 +404,7 @@ define-lazy-prop@^2.0.0:
 
 easemob-websdk@^4.4.1:
   version "4.4.1"
-  resolved "https://registry.npmjs.org/easemob-websdk/-/easemob-websdk-4.4.1.tgz#e90bf988f23673fa83d12eea510a0a17501b6d3b"
+  resolved "https://registry.npmmirror.com/easemob-websdk/-/easemob-websdk-4.4.1.tgz#e90bf988f23673fa83d12eea510a0a17501b6d3b"
   integrity sha512-sPWQBiulZ4xrP/Ui7r6PUqUE1NiSvrpTeL4lwIfXPRUMmpIriziIt+vsdkRJf4FO4t4s0z/W2tEILnsUcu8lcQ==
 
 element-plus@^2.2.30:

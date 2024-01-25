@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { EaseClient } from '@/EaseIM';
+import { EaseClient, EasemobChat } from '@/EaseIM';
 import useLoginStore from '@/stores/login';
 import { ElMessage } from 'element-plus';
 import type { FormInstance, FormRules } from 'element-plus';
