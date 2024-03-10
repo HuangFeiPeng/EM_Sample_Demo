@@ -402,10 +402,10 @@ define-lazy-prop@^2.0.0:
   resolved "https://registry.npmmirror.com/define-lazy-prop/-/define-lazy-prop-2.0.0.tgz"
   integrity sha512-Ds09qNh8yw3khSjiJjiUInaGX9xlqZDY7JVryGxdxV7NPeuqQfplOpQ66yJFZut3jLa5zOwkXw1g9EI2uKh4Og==
 
-easemob-websdk@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.npmmirror.com/easemob-websdk/-/easemob-websdk-4.4.1.tgz#e90bf988f23673fa83d12eea510a0a17501b6d3b"
-  integrity sha512-sPWQBiulZ4xrP/Ui7r6PUqUE1NiSvrpTeL4lwIfXPRUMmpIriziIt+vsdkRJf4FO4t4s0z/W2tEILnsUcu8lcQ==
+easemob-websdk@^4.5.1:
+  version "4.5.1"
+  resolved "https://registry.npmmirror.com/easemob-websdk/-/easemob-websdk-4.5.1.tgz#eca4def27cc2b931ac770d2cf84bbd2b31fc42b7"
+  integrity sha512-Da8g3MEGAliT/F2PbPnhxD5CvOxowhwvjOzIvovQ6tVI5pvqYj80aU3QlLgkio5eFQ6PWI1y2FbMgrQzj3DbaQ==
 
 element-plus@^2.2.30:
   version "2.2.30"

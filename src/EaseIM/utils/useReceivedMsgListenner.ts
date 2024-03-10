@@ -1,13 +1,26 @@
-import { EaseClient, EasemobChat } from '../index';
-let cacleMessageIds: string[] = [];
+import { EaseClient, EasemobChat, EC } from '../index';
+const sendReadAck = (message: EasemobChat.MessageBody) => {
+  console.log('>>>>>执行发送回执');
+  let option = {
+    type: 'read', // 消息是否已读。
+    chatType: 'groupChat', // 会话类型，这里为群聊。
+    id: message.id, // 需要发送已读回执的消息 ID。
+    to: message.to, // 群组 ID。
+    ackContent: JSON.stringify({ readed: true }), // 回执内容。
+  } as EasemobChat.CreateReadMsgParameters;
+  console.log('>>>>>发送回执参数', option);
+  let msg = EC.message.create(option);
+  EaseClient.send(msg);
+};
 const useReceivedMsgListnner = () => {
   const msgListnerFunc = {
     // 当前用户收到文本消息。
     onTextMessage: (message: EasemobChat.TextMsgBody) => {
       console.log('收到文本消息', message);
       const { id } = message;
-      cacleMessageIds.push(id);
-      console.log('%ccacleMessageIds', 'color:blue;', cacleMessageIds);
+      if (message.msgConfig?.allowGroupAck) {
+        sendReadAck(message);
+      }
     },
     // 当前用户收到图片消息。
     onImageMessage: (message: EasemobChat.ImgMsgBody) => {
@@ -51,6 +64,9 @@ const useReceivedMsgListnner = () => {
     },
     onReactionChange: (reactionMsg: EasemobChat.ReactionMessage) => {
       console.log('>>>>>收到回应消息回调', reactionMsg);
+    },
+    onReadAckMessage: (message: EasemobChat.ReadMsgBody) => {
+      console.log('>>>>>收到已读回执', message);
     },
   };
   EaseClient.removeEventHandler('receivedMsgEvent');
