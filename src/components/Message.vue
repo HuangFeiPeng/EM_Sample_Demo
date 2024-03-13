@@ -215,7 +215,42 @@ const sendFileMessage = () => {
 const sendAudioMessage = () => { };
 //发送视频消息
 const sendVideoMessage = () => { };
-
+//发送合并消息
+const sendCombineMessage = () => {
+    const options: EasemobChat.CreateCombineMsgParameters = {
+        type: 'combine',
+        // 消息接收方：单聊为对方用户 ID，群聊和聊天室分别为群组 ID 和聊天室 ID。
+        to: messageForm.targetId,
+        // 会话类型：单聊、群聊和聊天室分别为 `singleChat`、`groupChat` 和 `chatRoom`。
+        chatType: messageForm.chatType,
+        compatibleText: '该消息类型暂不支持',
+        title: "聊天记录",
+        summary: "hi",
+        messageList: [
+            {
+                "id": "1255528641622705748",
+                "type": "txt",
+                "chatType": "groupChat",
+                "msg": "1234",
+                "to": "228077593493509",
+                "from": "hfp",
+                "ext": {},
+                "time": 1709890341773,
+            }
+        ],
+        onFileUploadComplete: (data) => {
+            console.log('>>>>转发消息文件上传完成', data)
+        },
+    }
+    let msg = EC.message.create(options);
+    EaseClient.send(msg)
+        .then((res) => {
+            console.log('>>>发送转发消息成功', res);
+        })
+        .catch((e) => {
+            console.log('>>>发送转发消息失败', e);
+        });
+}
 /* 管理服务端消息  */
 const manageServerMessageForm = reactive<ManageServerMessageForm>({
     pageNum: 1,
@@ -391,6 +426,8 @@ const recallMessageFromServer = async () => {
                     <el-button v-show="messageForm.messageType === 'txt'" type="primary" @click="sendTextMessage">
                         发送文本消息
                     </el-button>
+                    <!-- 合并转发消息 -->
+                    <el-button type="primary" @click="sendCombineMessage">合并转发消息发送</el-button>
                     <!-- 坐标消息 -->
                     <el-button v-show="messageForm.messageType === 'loc'" type="primary" @click="sendLocationMessage">
                         发送坐标消息
