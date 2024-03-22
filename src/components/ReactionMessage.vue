@@ -44,6 +44,7 @@ const fetchReactionMessageList = async () => {
     const res = await EaseClient.getReactionlist({
       messageId: reactionMessageForm.messageId,
       chatType: reactionMessageForm.chatType,
+      groupId: reactionMessageForm.groupId,
     });
     console.log('>>>>>Reaction 列表拉取成功', res);
   } catch (error) {

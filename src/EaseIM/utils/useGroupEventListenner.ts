@@ -117,10 +117,28 @@ const useGroupEventListenner = () => {
           break;
       }
     },
-  });
-  EaseClient.listen({
-    onPresence: (presence) => {
-      console.log('presence', presence);
+    onChatThreadChange: (msg) => {
+      console.log('>>>>收到子区相关事件');
+      switch (msg.operation) {
+        // 子区创建。子区所属群组的所有成员收到该事件。
+        case 'create':
+          console.log('>>>>监听到子区创建', msg);
+          break;
+        // 子区名称修改、子区中新增或撤回消息。子区所属群组的所有成员会收到该事件。
+        case 'update':
+          console.log('>>>>监听到子区名称修改、子区中新增或撤回消息', msg);
+          break;
+        // 子区解散。子区所属群组的所有成员会收到该事件。
+        case 'destroy':
+          console.log('>>>>监听到子区解散', msg);
+          break;
+        // 子区成员被移除。被踢出子区的成员收到该事件。
+        case 'userRemove':
+          console.log('>>>>监听到子区成员被移除', msg);
+          break;
+        default:
+          break;
+      }
     },
   });
 };

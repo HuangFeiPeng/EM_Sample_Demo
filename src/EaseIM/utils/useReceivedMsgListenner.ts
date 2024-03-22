@@ -65,7 +65,7 @@ const useReceivedMsgListnner = () => {
     onReactionChange: (reactionMsg: EasemobChat.ReactionMessage) => {
       console.log('>>>>>收到回应消息回调', reactionMsg);
     },
-    onReadAckMessage: (message: EasemobChat.ReadMsgBody) => {
+    onReadMessage: (message: EasemobChat.ReadMsgBody) => {
       console.log('>>>>>收到已读回执', message);
     },
   };
