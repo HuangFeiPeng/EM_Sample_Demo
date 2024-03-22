@@ -14,7 +14,7 @@
     "eruda": "^2.11.2",
     "path": "^0.12.7",
     "pinia": "^2.0.30",
-    "vue": "^3.2.45",
+    "vue": "^3.4.21",
     "vue-router": "4"
   },
   "devDependencies": {
