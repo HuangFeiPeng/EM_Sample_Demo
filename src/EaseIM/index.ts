@@ -16,7 +16,4 @@ EC.logger.setLevel(0);
 const reInitEaseClient = (params: EasemobChat.ConnectionParameters) => {
   EaseClient = new EC.connection(params);
 };
-EC.logger.onLog = (data) => {
-  console.log('日志输出', data);
-};
 export { EaseClient, EC, EasemobChat, reInitEaseClient };
